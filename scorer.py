@@ -41,18 +41,16 @@ AMENITIES_LIST = [
 ]
 
 AMENITIES_KEYWORDS = {
-    'Daily housekeeping': ['daily housekeeping', 'housekeeping daily', 'daily cleaning', 'turndown'],
-    'Laundry':            ['laundry service', 'laundry', 'dry cleaning', 'washing service'],
-    '24-hour front desk': ['24-hour front desk', '24/7 front desk', '24-hour reception',
-                           'front desk 24', 'hour front desk'],
+    'Daily housekeeping': ['daily housekeeping', 'housekeeping daily', 'daily cleaning', 'turndown', 'housekeeping'],
+    'Laundry':            ['laundry service', 'laundry', 'dry cleaning', 'washing service', 'laundry facilities'],
+    '24-hour front desk': ['24-hour front desk', '24/7 front desk', '24-hour reception', 'front desk 24', 'hour front desk', 'front desk (24 hours)', '24 hours front desk'],
     'Lift':               ['lift', 'elevator'],
     'Suite Rooms':        ['suite rooms', 'junior suite', 'suites available', 'suite'],
     'Bathtub in Room':    ['bathtub in room', 'bathtub', 'bath tub', 'soaking tub'],
-    'Pet-Friendly Rooms': ['pet-friendly', 'pets allowed', 'pet friendly', 'pets welcome'],
-    'Room service':       ['room service', '24-hour room service'],
-    'Fitness center':     ['fitness center', 'fitness centre', 'gym', 'workout room',
-                           'exercise room', 'health club'],
-    'Bar':                ['hotel bar', 'bar/lounge', 'cocktail bar', 'lounge bar', ' bar '],
+    'Pet-Friendly Rooms': ['pet-friendly', 'pets allowed', 'pet friendly', 'pets welcome', 'dog-friendly', 'cat-friendly'],
+    'Room service':       ['room service', '24-hour room service', 'in-room dining'],
+    'Fitness center':     ['fitness center', 'fitness centre', 'gym', 'workout room', 'exercise room', 'health club', 'fitness facilities'],
+    'Bar':                ['hotel bar', 'bar/lounge', 'cocktail bar', 'lounge bar', ' bar ', 'bartender'],
 }
 
 
