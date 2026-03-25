@@ -44,17 +44,18 @@ def scrape_booking(url, page):
         page.evaluate("window.scrollBy(0, 600)")
         human_delay(1, 2)
 
+        # FIX: Uses regex to catch dynamic numbers (e.g., "See all 40 facilities")
         for sel in [
             'button[data-testid="show-all-facilities-button"]',
             'a[href*="#facilities"]',
-            'button:has-text("Show all facilities")',
-            'button:has-text("See all facilities")',
+            'text=/See all \\d+ facilities/i',
+            'text=/See all facilities/i',
+            'text=/Show all facilities/i'
         ]:
-            click_if_exists(page, sel, 2500)
+            if click_if_exists(page, sel, 2500):
+                break
 
         human_delay(2, 3)
-
-        # AGGRESSIVE SCRAPE: Grab all text visible on the page/modal
         result['facilities_text'] = page.evaluate("document.body.innerText")
 
         rating = None
@@ -69,18 +70,11 @@ def scrape_booking(url, page):
             try:
                 el = page.query_selector(sel)
                 if el:
-                    t = el.inner_text().strip()
-                    rating = extract_rating_from_text(t)
-                    if rating:
-                        break
-            except Exception:
-                continue
-
+                    rating = extract_rating_from_text(el.inner_text().strip())
+                    if rating: break
+            except: continue
         result['rating'] = rating
-
-    except Exception as e:
-        result['error'] = str(e)
-
+    except Exception as e: result['error'] = str(e)
     return result
 
 # ──────────────────────────────────────────────
@@ -100,18 +94,17 @@ def scrape_expedia(url, page):
         page.evaluate("window.scrollBy(0, 500)")
         human_delay(1, 2)
 
+        # FIX: Looks purely for the text string, ignoring HTML element types
         for sel in [
-            'button[data-stid="button-see-all-amenities"]',
-            'button:has-text("See all amenities")',
-            'button:has-text("See all property amenities")',
-            'button:has-text("Show all amenities")',
-            '[data-testid="amenities-link"]',
+            'text="See all about this property"',
+            'text="See all amenities"',
+            '[data-stid="button-see-all-amenities"]',
+            '[data-testid="amenities-link"]'
         ]:
-            click_if_exists(page, sel, 2500)
+            if click_if_exists(page, sel, 2500):
+                break
 
         human_delay(2, 3)
-
-        # AGGRESSIVE SCRAPE: Grab all text visible on the page/modal
         result['facilities_text'] = page.evaluate("document.body.innerText")
 
         rating = None
@@ -126,18 +119,11 @@ def scrape_expedia(url, page):
             try:
                 el = page.query_selector(sel)
                 if el:
-                    t = el.inner_text().strip()
-                    rating = extract_rating_from_text(t)
-                    if rating:
-                        break
-            except Exception:
-                continue
-
+                    rating = extract_rating_from_text(el.inner_text().strip())
+                    if rating: break
+            except: continue
         result['rating'] = rating
-
-    except Exception as e:
-        result['error'] = str(e)
-
+    except Exception as e: result['error'] = str(e)
     return result
 
 # ──────────────────────────────────────────────
@@ -164,10 +150,8 @@ def scrape_hotel_data(hotel_input):
 
         result = {'booking': None, 'expedia': None}
         try:
-            if hotel_input.get('booking_url'):
-                result['booking'] = scrape_booking(hotel_input['booking_url'], page)
-            if hotel_input.get('expedia_url'):
-                result['expedia'] = scrape_expedia(hotel_input['expedia_url'], page)
+            if hotel_input.get('booking_url'): result['booking'] = scrape_booking(hotel_input['booking_url'], page)
+            if hotel_input.get('expedia_url'): result['expedia'] = scrape_expedia(hotel_input['expedia_url'], page)
         finally:
             browser.close()
 
