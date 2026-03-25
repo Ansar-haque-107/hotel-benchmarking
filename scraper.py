@@ -1,8 +1,3 @@
-"""
-scraper.py — Human-like Playwright scraper for Booking.com and Expedia.
-Extracts facilities text and guest rating from each hotel page.
-"""
-
 from playwright.sync_api import sync_playwright
 import time
 import random
