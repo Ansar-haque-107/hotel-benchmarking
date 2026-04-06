@@ -8,258 +8,171 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg:        #07101f;
-      --surface:   #0d1a30;
-      --surface2:  #142138;
-      --border:    #1e3155;
-      --gold:      #c8a55a;
-      --gold-lt:   #e8c97e;
-      --gold-dim:  #8a6e35;
-      --text:      #dde6f5;
-      --muted:     #6a84a8;
-      --danger:    #e05a5a;
-      --success:   #4caf7d;
-      --radius:    10px;
+      --bg: #07101f; --surface: #0d1a30; --surface2: #142138;
+      --border: #1e3155; --gold: #c8a55a; --gold-lt: #e8c97e;
+      --gold-dim: #8a6e35; --text: #dde6f5; --muted: #6a84a8;
+      --danger: #e05a5a; --success: #4caf7d; --radius: 10px;
     }
-
     html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; }
-
-    /* ── LAYOUT ── */
     .app { min-height: 100vh; display: flex; flex-direction: column; }
 
     header {
-      padding: 24px 40px;
-      border-bottom: 1px solid var(--border);
+      padding: 24px 40px; border-bottom: 1px solid var(--border);
       display: flex; align-items: center; gap: 16px;
       background: linear-gradient(to right, #07101f, #0d1824);
     }
     .logo-mark {
       width: 38px; height: 38px; border: 1.5px solid var(--gold);
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Cormorant Garamond', serif; font-size: 22px;
-      color: var(--gold); letter-spacing: 0;
+      font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--gold);
     }
-    .logo-text h1 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--gold-lt); letter-spacing: 0.5px; }
+    .logo-text h1 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--gold-lt); }
     .logo-text p  { font-size: 11px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; }
 
-    /* ── STEPS NAV ── */
     .steps-bar {
-      display: flex; align-items: center; gap: 0;
-      padding: 0 40px;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 40px;
+      background: var(--surface); border-bottom: 1px solid var(--border);
     }
     .step-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 14px 24px 14px 0; color: var(--muted);
-      font-size: 12px; font-weight: 500; letter-spacing: 0.5px;
+      display: flex; align-items: center; gap: 10px; padding: 14px 24px 14px 0;
+      color: var(--muted); font-size: 12px; font-weight: 500; letter-spacing: 0.5px;
       text-transform: uppercase; transition: color 0.2s;
     }
-    .step-item.active  { color: var(--gold-lt); }
-    .step-item.done    { color: var(--success); }
+    .step-item.active { color: var(--gold-lt); }
+    .step-item.done   { color: var(--success); }
     .step-num {
-      width: 24px; height: 24px; border-radius: 50%;
-      border: 1.5px solid currentColor;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px; font-weight: 600; flex-shrink: 0;
+      width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid currentColor;
+      display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600;
     }
     .step-divider { width: 32px; height: 1px; background: var(--border); margin-right: 24px; }
 
-    /* ── MAIN ── */
     main { flex: 1; padding: 36px 40px; max-width: 1400px; width: 100%; margin: 0 auto; }
-
-    /* ── SCREENS ── */
     .screen { display: none; }
     .screen.active { display: block; }
 
-    /* ── SECTION TITLES ── */
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 28px; font-weight: 600; color: var(--gold-lt);
-      margin-bottom: 6px;
-    }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--gold-lt); margin-bottom: 6px; }
     .section-sub { color: var(--muted); font-size: 13px; margin-bottom: 28px; }
 
-    /* ── HOTEL CARDS ── */
     .hotels-grid { display: flex; flex-direction: column; gap: 16px; margin-bottom: 28px; }
-
     .hotel-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px 24px;
-      position: relative;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 24px;
       animation: fadeIn 0.25s ease;
     }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
-    .hotel-card-header {
-      display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;
-    }
-    .hotel-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 13px; color: var(--gold); letter-spacing: 1px; text-transform: uppercase;
-    }
+    .hotel-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .hotel-num { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; }
     .my-property-badge {
       font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
       color: var(--gold); border: 1px solid var(--gold-dim); padding: 2px 8px; border-radius: 20px;
     }
-    .btn-remove {
-      background: none; border: none; color: var(--muted); cursor: pointer; font-size: 18px;
-      line-height: 1; padding: 4px; transition: color 0.2s;
-    }
+    .btn-remove { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 18px; padding: 4px; transition: color 0.2s; }
     .btn-remove:hover { color: var(--danger); }
 
-    .hotel-fields {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
+    .hotel-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .hotel-fields .full-row { grid-column: 1 / -1; }
+
+    /* URL fields section */
+    .url-section-label {
+      grid-column: 1 / -1;
+      font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--gold-dim); padding-top: 8px; border-top: 1px solid var(--border);
+      margin-top: 4px;
+    }
+    .url-hint {
+      grid-column: 1 / -1;
+      font-size: 11px; color: var(--muted); margin-top: -6px;
+    }
 
     .field-group { display: flex; flex-direction: column; gap: 5px; }
     .field-group label { font-size: 11px; font-weight: 500; color: var(--muted); letter-spacing: 0.8px; text-transform: uppercase; }
 
     input[type="text"], input[type="number"], select {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--text);
-      padding: 9px 12px;
-      font-size: 13px;
-      font-family: 'Inter', sans-serif;
-      width: 100%;
-      transition: border-color 0.2s;
-      outline: none;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 6px; color: var(--text); padding: 9px 12px;
+      font-size: 13px; font-family: 'Inter', sans-serif; width: 100%;
+      transition: border-color 0.2s; outline: none;
     }
-    input[type="text"]:focus, input[type="number"]:focus, select:focus {
-      border-color: var(--gold-dim);
-    }
+    input[type="text"]:focus, input[type="number"]:focus, select:focus { border-color: var(--gold-dim); }
     select option { background: var(--surface2); }
 
-    /* ── BUTTONS ── */
+    /* source tags on URL inputs */
+    .source-tag {
+      display: inline-block; font-size: 10px; font-weight: 600;
+      padding: 1px 6px; border-radius: 3px; margin-left: 6px;
+      vertical-align: middle; letter-spacing: 0.5px;
+    }
+    .tag-bdc     { background: #1a3a6e; color: #6aadff; }
+    .tag-expedia { background: #1a2e4a; color: #7ac0ff; }
+    .tag-agoda   { background: #2e1a3a; color: #c07aff; }
+    .tag-google  { background: #1a3a2a; color: #6adfaa; }
+
     .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 20px; border-radius: 6px; font-size: 13px;
-      font-weight: 500; font-family: 'Inter', sans-serif;
-      cursor: pointer; border: none; transition: all 0.2s; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
+      border-radius: 6px; font-size: 13px; font-weight: 500; font-family: 'Inter', sans-serif;
+      cursor: pointer; border: none; transition: all 0.2s;
     }
-    .btn-gold {
-      background: var(--gold); color: #07101f;
-    }
+    .btn-gold    { background: var(--gold); color: #07101f; }
     .btn-gold:hover { background: var(--gold-lt); }
-    .btn-outline {
-      background: transparent; border: 1px solid var(--border); color: var(--text);
-    }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
     .btn-outline:hover { border-color: var(--gold-dim); color: var(--gold-lt); }
-    .btn-green { background: var(--success); color: #fff; }
+    .btn-green   { background: var(--success); color: #fff; }
     .btn-green:hover { opacity: 0.9; }
     .btn:disabled { opacity: 0.45; cursor: not-allowed; }
-
     .action-bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 
-    /* ── PROGRESS SCREEN ── */
-    .progress-wrap {
-      max-width: 560px; margin: 80px auto; text-align: center;
-    }
-    .progress-icon {
-      width: 64px; height: 64px; border-radius: 50%;
-      border: 2px solid var(--gold-dim);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 28px; margin: 0 auto 24px;
-      animation: spin 3s linear infinite;
-    }
+    /* Progress */
+    .progress-wrap { max-width: 560px; margin: 80px auto; text-align: center; }
+    .progress-icon { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--gold-dim); display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 24px; animation: spin 3s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .progress-title {
-      font-family: 'Cormorant Garamond', serif; font-size: 26px; color: var(--gold-lt); margin-bottom: 8px;
-    }
+    .progress-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; color: var(--gold-lt); margin-bottom: 8px; }
     .progress-hotel { color: var(--muted); font-size: 13px; margin-bottom: 28px; min-height: 20px; }
     .progress-bar-wrap { background: var(--surface2); border-radius: 99px; height: 6px; overflow: hidden; }
     .progress-bar-fill { height: 100%; background: linear-gradient(to right, var(--gold-dim), var(--gold)); border-radius: 99px; transition: width 0.5s ease; }
     .progress-label { color: var(--muted); font-size: 12px; margin-top: 10px; }
-    .error-box {
-      background: rgba(224,90,90,0.1); border: 1px solid rgba(224,90,90,0.3);
-      border-radius: 8px; padding: 16px 20px; margin-top: 24px; color: #e09090;
-      font-size: 12px; text-align: left; white-space: pre-wrap; word-break: break-all;
-    }
+    .error-box { background: rgba(224,90,90,0.1); border: 1px solid rgba(224,90,90,0.3); border-radius: 8px; padding: 16px 20px; margin-top: 24px; color: #e09090; font-size: 12px; text-align: left; white-space: pre-wrap; word-break: break-all; }
 
-    /* ── RESULTS SCREEN ── */
-    .results-header {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      margin-bottom: 24px; flex-wrap: wrap; gap: 16px;
-    }
+    /* Results */
+    .results-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
     .download-bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-
-    .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
-    .tab {
-      padding: 10px 20px; font-size: 13px; font-weight: 500; color: var(--muted);
-      cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px;
-      transition: all 0.2s;
-    }
+    .tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+    .tab { padding: 10px 20px; font-size: 13px; font-weight: 500; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.2s; }
     .tab.active { color: var(--gold-lt); border-bottom-color: var(--gold); }
 
-    /* ── TABLE ── */
     .table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); }
     table { border-collapse: collapse; width: 100%; white-space: nowrap; }
-    thead th {
-      background: var(--surface); color: var(--muted);
-      font-size: 11px; font-weight: 600; letter-spacing: 0.7px; text-transform: uppercase;
-      padding: 12px 14px; border-bottom: 1px solid var(--border);
-      text-align: left; position: sticky; top: 0;
-    }
+    thead th { background: var(--surface); color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: 0.7px; text-transform: uppercase; padding: 12px 14px; border-bottom: 1px solid var(--border); text-align: left; }
     thead th.hotel-name-col { color: var(--gold-lt); min-width: 160px; }
     tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
     tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: var(--surface2); }
     tbody td { padding: 10px 14px; font-size: 13px; }
-    tbody td.label-col { color: var(--muted); font-weight: 500; white-space: normal; max-width: 180px; }
+    tbody td.label-col  { color: var(--muted); font-weight: 500; white-space: normal; max-width: 180px; }
     tbody td.bucket-col { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
     tbody td.weight-col { color: var(--gold-dim); font-weight: 600; text-align: center; }
-    tbody td.score-cell { text-align: center; font-weight: 600; }
+    tbody td.score-cell  { text-align: center; font-weight: 600; }
     tbody td.wscore-cell { text-align: center; color: var(--gold); font-weight: 600; }
     tbody td.reason-cell { color: var(--muted); font-size: 12px; white-space: normal; min-width: 200px; max-width: 280px; }
     .total-row td { background: var(--surface2); color: var(--gold-lt); font-weight: 700; }
-    .rank-row td { background: var(--surface); color: var(--text); font-weight: 600; }
-    .rank-badge {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 26px; height: 26px; border-radius: 50%;
-      font-size: 12px; font-weight: 700;
-    }
+    .rank-row  td { background: var(--surface); color: var(--text); font-weight: 600; }
+    .rank-badge { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; font-size: 12px; font-weight: 700; }
     .rank-1 { background: var(--gold); color: #07101f; }
     .rank-2 { background: var(--surface2); border: 1.5px solid var(--gold-dim); color: var(--gold); }
     .rank-3 { background: var(--surface2); border: 1.5px solid #7a5c30; color: #c8a06a; }
     .rank-n { background: transparent; border: 1px solid var(--border); color: var(--muted); }
-
-    /* Amenities table */
-    .check-cell { text-align: center; color: var(--success); font-size: 16px; }
-    .amenity-label { color: var(--text); }
-    .amenity-count { font-weight: 700; color: var(--gold); text-align: center; }
-    .amenity-marking { font-weight: 700; color: var(--gold-lt); text-align: center; }
-    .section-row td { background: var(--surface); font-weight: 600; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; }
-
-    /* ── HOTEL COL HEADER GROUP ── */
     .hotel-group-header { text-align: center !important; border-left: 1px solid var(--border); color: var(--gold-lt) !important; }
     tbody td.group-start { border-left: 1px solid var(--border); }
-
-    /* ── EDIT mode ── */
-    .editable-score {
-      background: transparent; border: none; color: inherit;
-      font: inherit; font-weight: inherit;
-      width: 50px; text-align: center; cursor: pointer;
-      border-bottom: 1px dashed var(--border);
-      outline: none;
-    }
+    .check-cell { text-align: center; color: var(--success); font-size: 16px; }
+    .amenity-label { color: var(--text); }
+    .amenity-count   { font-weight: 700; color: var(--gold); text-align: center; }
+    .amenity-marking { font-weight: 700; color: var(--gold-lt); text-align: center; }
+    .editable-score { background: transparent; border: none; color: inherit; font: inherit; font-weight: inherit; width: 50px; text-align: center; cursor: pointer; border-bottom: 1px dashed var(--border); outline: none; }
     .editable-score:focus { border-bottom-color: var(--gold); }
-    .editable-reason {
-      background: transparent; border: none; color: inherit;
-      font: inherit; width: 100%; resize: none; outline: none;
-      cursor: pointer; border-bottom: 1px dashed transparent;
-    }
+    .editable-reason { background: transparent; border: none; color: inherit; font: inherit; width: 100%; resize: none; outline: none; cursor: pointer; border-bottom: 1px dashed transparent; }
     .editable-reason:focus { border-bottom-color: var(--gold-dim); }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 700px) {
       header { padding: 16px 20px; }
       main   { padding: 24px 16px; }
@@ -271,7 +184,6 @@
 <body>
 <div class="app">
 
-  <!-- HEADER -->
   <header>
     <div class="logo-mark">B</div>
     <div class="logo-text">
@@ -280,45 +192,40 @@
     </div>
   </header>
 
-  <!-- STEPS NAV -->
   <nav class="steps-bar">
-    <div class="step-item active" id="nav-step-1">
-      <div class="step-num">1</div> Add Properties
-    </div>
+    <div class="step-item active" id="nav-step-1"><div class="step-num">1</div> Add Properties</div>
     <div class="step-divider"></div>
-    <div class="step-item" id="nav-step-2">
-      <div class="step-num">2</div> Scraping Data
-    </div>
+    <div class="step-item" id="nav-step-2"><div class="step-num">2</div> Scraping Data</div>
     <div class="step-divider"></div>
-    <div class="step-item" id="nav-step-3">
-      <div class="step-num">3</div> Results &amp; Export
-    </div>
+    <div class="step-item" id="nav-step-3"><div class="step-num">3</div> Results &amp; Export</div>
   </nav>
 
   <main>
 
-    <!-- ══════════════════════════════ STEP 1: SETUP ══════════════════════════════ -->
+    <!-- STEP 1 -->
     <div class="screen active" id="screen-1">
       <div class="section-title">Add Hotels to Compare</div>
       <p class="section-sub">
-        Enter your property first, then add competitors. Paste the exact Booking.com / Expedia URL for each hotel.<br>
-        <strong style="color:var(--gold-lt)">Location</strong> and <strong style="color:var(--gold-lt)">Brand tier</strong> must be entered manually — all other factors are auto-scraped.
+        Enter your property first, then add competitors. Paste URLs from any combination of
+        <strong style="color:#6aadff">Booking.com</strong>,
+        <strong style="color:#7ac0ff">Expedia</strong>,
+        <strong style="color:#c07aff">Agoda</strong>, or
+        <strong style="color:#6adfaa">Google Hotels</strong> — at least one URL required per hotel.<br>
+        <strong style="color:var(--gold-lt)">Location</strong> and <strong style="color:var(--gold-lt)">Brand tier</strong> are entered manually.
       </p>
-
       <div class="hotels-grid" id="hotels-grid"></div>
-
       <div class="action-bar">
-        <button class="btn btn-outline" onclick="addHotel()">＋ Add Hotel</button>
-        <button class="btn btn-gold" id="btn-start" onclick="startScraping()">Run Benchmarking →</button>
+        <button class="btn btn-outline" onclick="addHotel()">+ Add Hotel</button>
+        <button class="btn btn-gold" id="btn-start" onclick="startScraping()">Run Benchmarking &rarr;</button>
       </div>
     </div>
 
-    <!-- ══════════════════════════════ STEP 2: SCRAPING ══════════════════════════════ -->
+    <!-- STEP 2 -->
     <div class="screen" id="screen-2">
       <div class="progress-wrap">
-        <div class="progress-icon">⟳</div>
+        <div class="progress-icon">&#8635;</div>
         <div class="progress-title">Scraping Hotel Data</div>
-        <p class="progress-hotel" id="progress-hotel-name">Starting…</p>
+        <p class="progress-hotel" id="progress-hotel-name">Starting&hellip;</p>
         <div class="progress-bar-wrap">
           <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
         </div>
@@ -327,25 +234,23 @@
       </div>
     </div>
 
-    <!-- ══════════════════════════════ STEP 3: RESULTS ══════════════════════════════ -->
+    <!-- STEP 3 -->
     <div class="screen" id="screen-3">
       <div class="results-header">
         <div>
           <div class="section-title">Benchmarking Results</div>
-          <p class="section-sub">Click any score or reason to edit it before downloading.</p>
+          <p class="section-sub">Click any score or reason to edit before downloading.</p>
         </div>
         <div class="download-bar">
-          <button class="btn btn-outline" onclick="goBack()">← Start Over</button>
-          <button class="btn btn-green" onclick="downloadCSV('amenities')">⬇ Amenities CSV</button>
-          <button class="btn btn-gold"  onclick="downloadCSV('scoring')">⬇ Scoring CSV</button>
+          <button class="btn btn-outline" onclick="goBack()">&larr; Start Over</button>
+          <button class="btn btn-green" onclick="downloadCSV('amenities')">&#8595; Amenities CSV</button>
+          <button class="btn btn-gold"  onclick="downloadCSV('scoring')">&#8595; Scoring CSV</button>
         </div>
       </div>
-
       <div class="tabs">
-        <div class="tab active" onclick="showTab('scoring')">Scoring Matrix</div>
-        <div class="tab" onclick="showTab('amenities')">Amenities Checklist</div>
+        <div class="tab active" onclick="showTab('scoring',this)">Scoring Matrix</div>
+        <div class="tab" onclick="showTab('amenities',this)">Amenities Checklist</div>
       </div>
-
       <div id="tab-scoring" class="table-wrap"></div>
       <div id="tab-amenities" class="table-wrap" style="display:none"></div>
     </div>
@@ -354,44 +259,32 @@
 </div>
 
 <script>
-// ══════════════════════════════════════════════════════════
-//  STATE
-// ══════════════════════════════════════════════════════════
-const state = {
-  hotels: [],       // user input
-  jobId:  null,
-  results: [],      // scored results (editable)
-  pollTimer: null,
-};
+const state = { hotels: [], jobId: null, results: [], pollTimer: null };
 
 const BRAND_TIERS = ['Economy','MidScale','UpperMidScale','UpperScale','UpperUpscale','Luxury'];
-
 const FACTORS = [
-  { key:'location',   label:'Location',                bucket:'Location', weight:5 },
-  { key:'amenities',  label:'Amenities',               bucket:'Service',  weight:4 },
-  { key:'restaurant', label:'On Site Restaurant & Food',bucket:'Product',  weight:3 },
-  { key:'meeting',    label:'Meeting Space',            bucket:'Product',  weight:3 },
-  { key:'brand',      label:'Type of Brand',            bucket:'Brand',    weight:5 },
-  { key:'parking',    label:'Parking Space',            bucket:'Product',  weight:4 },
-  { key:'ratings',    label:'Ratings & Reviews',        bucket:'Service',  weight:5 },
-  { key:'pool',       label:'Swimming Pool',            bucket:'Product',  weight:4 },
+  {key:'location',   label:'Location',                bucket:'Location',weight:5},
+  {key:'amenities',  label:'Amenities',               bucket:'Service', weight:4},
+  {key:'restaurant', label:'On Site Restaurant & Food',bucket:'Product', weight:3},
+  {key:'meeting',    label:'Meeting Space',            bucket:'Product', weight:3},
+  {key:'brand',      label:'Type of Brand',            bucket:'Brand',   weight:5},
+  {key:'parking',    label:'Parking Space',            bucket:'Product', weight:4},
+  {key:'ratings',    label:'Ratings & Reviews',        bucket:'Service', weight:5},
+  {key:'pool',       label:'Swimming Pool',            bucket:'Product', weight:4},
 ];
-
 const AMENITIES = [
   'Daily housekeeping','Laundry','24-hour front desk','Lift',
   'Suite Rooms','Bathtub in Room','Pet-Friendly Rooms',
   'Room service','Fitness center','Bar'
 ];
 
-// ══════════════════════════════════════════════════════════
-//  HOTEL CARD MANAGEMENT
-// ══════════════════════════════════════════════════════════
 let hotelIdCounter = 0;
 
 function addHotel() {
   const id = ++hotelIdCounter;
   const isFirst = state.hotels.length === 0;
-  state.hotels.push({ id, name:'', booking_url:'', expedia_url:'', location_score:3, brand_tier:'MidScale', isMyProperty: isFirst });
+  state.hotels.push({id, name:'', booking_url:'', expedia_url:'', agoda_url:'', google_url:'',
+    location_score: 3, brand_tier: 'MidScale', isMyProperty: isFirst});
   renderHotelCards();
 }
 
@@ -415,14 +308,12 @@ function renderHotelCards() {
       <div class="hotel-card-header">
         <span class="hotel-num">
           ${hotel.isMyProperty
-            ? '<span class="my-property-badge">★ My Property</span>'
-            : `Competitor ${idx}`
-          }
+            ? '<span class="my-property-badge">&#9733; My Property</span>'
+            : `Competitor ${idx}`}
         </span>
         ${!hotel.isMyProperty
-          ? `<button class="btn-remove" onclick="removeHotel(${hotel.id})" title="Remove">✕</button>`
-          : ''
-        }
+          ? `<button class="btn-remove" onclick="removeHotel(${hotel.id})" title="Remove">&#10005;</button>`
+          : ''}
       </div>
       <div class="hotel-fields">
         <div class="field-group full-row">
@@ -431,52 +322,64 @@ function renderHotelCards() {
             value="${escHtml(hotel.name)}"
             oninput="updateHotel(${hotel.id},'name',this.value)" />
         </div>
+
+        <div class="url-section-label">Source URLs <span style="font-weight:400;color:var(--muted)">&mdash; paste at least one</span></div>
+        <p class="url-hint">Each URL goes straight to the hotel page. Mix and match any combination.</p>
+
         <div class="field-group">
-          <label>Booking.com URL</label>
+          <label>Booking.com URL <span class="source-tag tag-bdc">BDC</span></label>
           <input type="text" placeholder="https://www.booking.com/hotel/..."
             value="${escHtml(hotel.booking_url)}"
             oninput="updateHotel(${hotel.id},'booking_url',this.value)" />
         </div>
         <div class="field-group">
-          <label>Expedia URL</label>
+          <label>Expedia URL <span class="source-tag tag-expedia">Expedia</span></label>
           <input type="text" placeholder="https://www.expedia.com/..."
             value="${escHtml(hotel.expedia_url)}"
             oninput="updateHotel(${hotel.id},'expedia_url',this.value)" />
         </div>
         <div class="field-group">
-          <label>Location Score (1 – 5) <span style="color:var(--gold-dim);font-size:10px">MANUAL</span></label>
-          <input type="number" min="0" max="5" step="0.5"
-            value="${hotel.location_score}"
+          <label>Agoda URL <span class="source-tag tag-agoda">Agoda</span></label>
+          <input type="text" placeholder="https://www.agoda.com/..."
+            value="${escHtml(hotel.agoda_url)}"
+            oninput="updateHotel(${hotel.id},'agoda_url',this.value)" />
+        </div>
+        <div class="field-group">
+          <label>Google Hotels URL <span class="source-tag tag-google">Google</span></label>
+          <input type="text" placeholder="https://www.google.com/travel/search?q=..."
+            value="${escHtml(hotel.google_url)}"
+            oninput="updateHotel(${hotel.id},'google_url',this.value)" />
+        </div>
+
+        <div class="field-group">
+          <label>Location Score (1&ndash;5) <span style="color:var(--gold-dim);font-size:10px">MANUAL</span></label>
+          <input type="number" min="0" max="5" step="0.5" value="${hotel.location_score}"
             oninput="updateHotel(${hotel.id},'location_score',parseFloat(this.value)||0)" />
         </div>
         <div class="field-group">
           <label>Brand Tier <span style="color:var(--gold-dim);font-size:10px">MANUAL</span></label>
           <select onchange="updateHotel(${hotel.id},'brand_tier',this.value)">
-            ${BRAND_TIERS.map(t => `<option value="${t}" ${t===hotel.brand_tier?'selected':''}>${t}</option>`).join('')}
+            ${BRAND_TIERS.map(t=>`<option value="${t}" ${t===hotel.brand_tier?'selected':''}>${t}</option>`).join('')}
           </select>
         </div>
       </div>`;
     grid.appendChild(div);
   });
-
   if (state.hotels.length === 0) {
     grid.innerHTML = `<p style="color:var(--muted);text-align:center;padding:32px">
-      No hotels added yet. Click <strong style="color:var(--gold-lt)">+ Add Hotel</strong> to begin.
-    </p>`;
+      No hotels added yet. Click <strong style="color:var(--gold-lt)">+ Add Hotel</strong> to begin.</p>`;
   }
 }
 
-// ══════════════════════════════════════════════════════════
-//  SCRAPING
-// ══════════════════════════════════════════════════════════
 function startScraping() {
   const valid = state.hotels.filter(h => h.name.trim());
-  if (valid.length < 2) { alert('Please add at least 2 hotels (your property + 1 competitor).'); return; }
-  const noUrl = valid.filter(h => !h.booking_url.trim() && !h.expedia_url.trim());
-  if (noUrl.length) { alert(`"${noUrl[0].name}" needs at least one URL (Booking.com or Expedia).`); return; }
+  if (valid.length < 2) { alert('Please add at least 2 hotels.'); return; }
+  const noUrl = valid.filter(h =>
+    !h.booking_url.trim() && !h.expedia_url.trim() &&
+    !h.agoda_url.trim()   && !h.google_url.trim());
+  if (noUrl.length) { alert(`"${noUrl[0].name}" needs at least one URL.`); return; }
 
   showStep(2);
-
   fetch('/api/scrape', {
     method: 'POST',
     headers: {'Content-Type':'application/json'},
@@ -484,16 +387,14 @@ function startScraping() {
       name: h.name.trim(),
       booking_url: h.booking_url.trim(),
       expedia_url: h.expedia_url.trim(),
+      agoda_url:   h.agoda_url.trim(),
+      google_url:  h.google_url.trim(),
       location_score: h.location_score,
       brand_tier: h.brand_tier,
     }))})
   })
   .then(r => r.json())
-  .then(data => {
-    if (data.error) throw new Error(data.error);
-    state.jobId = data.job_id;
-    pollStatus();
-  })
+  .then(data => { if (data.error) throw new Error(data.error); state.jobId = data.job_id; pollStatus(); })
   .catch(err => showError(err.message));
 }
 
@@ -502,21 +403,12 @@ function pollStatus() {
     fetch(`/api/status/${state.jobId}`)
       .then(r => r.json())
       .then(data => {
-        // Update progress UI
         const pct = data.total > 0 ? Math.round((data.current / data.total) * 100) : 0;
         document.getElementById('progress-bar').style.width = pct + '%';
         document.getElementById('progress-label').textContent = `${data.current} of ${data.total} hotels`;
-        if (data.current_hotel) {
-          document.getElementById('progress-hotel-name').textContent = `Scraping: ${data.current_hotel}…`;
-        }
-
-        if (data.status === 'complete') {
-          clearInterval(state.pollTimer);
-          loadResults();
-        } else if (data.status === 'error') {
-          clearInterval(state.pollTimer);
-          showError(data.error || 'Unknown error during scraping.');
-        }
+        if (data.current_hotel) document.getElementById('progress-hotel-name').textContent = `Scraping: ${data.current_hotel}...`;
+        if (data.status === 'complete') { clearInterval(state.pollTimer); loadResults(); }
+        else if (data.status === 'error') { clearInterval(state.pollTimer); showError(data.error || 'Unknown error.'); }
       })
       .catch(err => { clearInterval(state.pollTimer); showError(err.message); });
   }, 2000);
@@ -525,49 +417,31 @@ function pollStatus() {
 function loadResults() {
   fetch(`/api/results/${state.jobId}`)
     .then(r => r.json())
-    .then(results => {
-      state.results = results;
-      renderResults();
-      showStep(3);
-    })
+    .then(results => { state.results = results; renderResults(); showStep(3); })
     .catch(err => showError(err.message));
 }
 
 function showError(msg) {
   const el = document.getElementById('scrape-error');
   el.style.display = 'block';
-  el.textContent = '⚠ Error: ' + msg;
+  el.textContent = 'Error: ' + msg;
   document.getElementById('progress-hotel-name').textContent = 'Scraping failed.';
 }
 
-// ══════════════════════════════════════════════════════════
-//  RESULTS RENDERING
-// ══════════════════════════════════════════════════════════
-function renderResults() {
-  renderScoringTable();
-  renderAmenitiesTable();
-}
+function renderResults() { renderScoringTable(); renderAmenitiesTable(); }
 
 function renderScoringTable() {
-  const hotels  = state.results;
-  const wrapper = document.getElementById('tab-scoring');
-
-  // Compute totals & ranks
+  const hotels = state.results;
   const totals = hotels.map(h => {
-    let t = 0;
-    FACTORS.forEach(f => { t += (h.factors[f.key]?.weighted_score || 0); });
-    return t;
+    let t = 0; FACTORS.forEach(f => { t += (h.factors[f.key]?.weighted_score || 0); }); return t;
   });
-  const sorted  = [...totals].sort((a,b) => b - a);
-  const ranks   = totals.map(t => sorted.indexOf(t) + 1);
+  const sorted = [...totals].sort((a,b) => b-a);
+  const ranks  = totals.map(t => sorted.indexOf(t) + 1);
 
   let html = '<table><thead><tr>';
   html += '<th>Bucket</th><th>Factor</th><th style="text-align:center">Weight</th>';
-  hotels.forEach((h, hi) => {
-    html += `<th class="hotel-group-header" colspan="3">${escHtml(h.name)}</th>`;
-  });
-  html += '</tr><tr>';
-  html += '<th></th><th></th><th></th>';
+  hotels.forEach(h => { html += `<th class="hotel-group-header" colspan="3">${escHtml(h.name)}</th>`; });
+  html += '</tr><tr><th></th><th></th><th></th>';
   hotels.forEach(() => {
     html += '<th style="text-align:center;font-size:10px">Score</th>';
     html += '<th style="text-align:center;font-size:10px">Weighted</th>';
@@ -575,105 +449,70 @@ function renderScoringTable() {
   });
   html += '</tr></thead><tbody>';
 
-  let lastBucket = '';
   FACTORS.forEach(f => {
-    if (f.bucket !== lastBucket) {
-      lastBucket = f.bucket;
-    }
-    html += `<tr>
-      <td class="bucket-col">${f.bucket}</td>
-      <td class="label-col">${f.label}</td>
-      <td class="weight-col">${f.weight}</td>`;
+    html += `<tr><td class="bucket-col">${f.bucket}</td><td class="label-col">${f.label}</td><td class="weight-col">${f.weight}</td>`;
     hotels.forEach((h, hi) => {
       const fd = h.factors[f.key] || {};
-      const score = fd.score ?? '';
-      const ws    = fd.weighted_score ?? '';
-      const reason = escHtml(fd.reason || '');
       html += `
         <td class="score-cell group-start">
           <input class="editable-score" type="number" min="0" max="5" step="0.5"
-            value="${score}"
-            onchange="editScore(${hi},'${f.key}',this.value)" />
+            value="${fd.score ?? ''}" onchange="editScore(${hi},'${f.key}',this.value)" />
         </td>
-        <td class="wscore-cell">${ws}</td>
+        <td class="wscore-cell">${fd.weighted_score ?? ''}</td>
         <td class="reason-cell">
           <textarea class="editable-reason" rows="2"
-            onchange="editReason(${hi},'${f.key}',this.value)">${reason}</textarea>
+            onchange="editReason(${hi},'${f.key}',this.value)">${escHtml(fd.reason || '')}</textarea>
         </td>`;
     });
     html += '</tr>';
   });
 
-  // Total row
   html += '<tr class="total-row"><td></td><td>Total Score</td><td></td>';
   totals.forEach(t => { html += `<td class="group-start" style="text-align:center;font-size:16px">${t.toFixed(1)}</td><td></td><td></td>`; });
   html += '</tr>';
-
-  // Rank row
   html += '<tr class="rank-row"><td></td><td>Rank</td><td></td>';
   ranks.forEach(r => {
     const cls = r===1?'rank-1':r===2?'rank-2':r===3?'rank-3':'rank-n';
     html += `<td class="group-start" style="text-align:center"><span class="rank-badge ${cls}">${r}</span></td><td></td><td></td>`;
   });
-  html += '</tr>';
-
-  html += '</tbody></table>';
-  wrapper.innerHTML = html;
+  html += '</tr></tbody></table>';
+  document.getElementById('tab-scoring').innerHTML = html;
 }
 
 function renderAmenitiesTable() {
-  const hotels  = state.results;
-  const wrapper = document.getElementById('tab-amenities');
-
+  const hotels = state.results;
   let html = '<table><thead><tr><th>Amenity</th>';
   hotels.forEach(h => { html += `<th class="hotel-name-col" style="text-align:center">${escHtml(h.name)}</th>`; });
   html += '</tr></thead><tbody>';
-
   AMENITIES.forEach(amenity => {
     html += `<tr><td class="amenity-label">${amenity}</td>`;
     hotels.forEach(h => {
       const found = h.amenity_details?.[amenity] || false;
-      html += `<td class="check-cell">${found ? '✓' : ''}</td>`;
+      html += `<td class="check-cell">${found ? '&#10003;' : ''}</td>`;
     });
     html += '</tr>';
   });
-
-  // Count row
   html += '<tr class="total-row"><td>Count</td>';
   hotels.forEach(h => {
     const cnt = Object.values(h.amenity_details || {}).filter(Boolean).length;
     html += `<td class="amenity-count">${cnt}</td>`;
   });
-  html += '</tr>';
-
-  // Marking row
-  html += '<tr class="rank-row"><td>Marking</td>';
-  hotels.forEach(h => {
-    const score = h.factors?.amenities?.score ?? '';
-    html += `<td class="amenity-marking">${score}</td>`;
-  });
-  html += '</tr>';
-
-  html += '</tbody></table>';
-  wrapper.innerHTML = html;
+  html += '</tr><tr class="rank-row"><td>Marking</td>';
+  hotels.forEach(h => { html += `<td class="amenity-marking">${h.factors?.amenities?.score ?? ''}</td>`; });
+  html += '</tr></tbody></table>';
+  document.getElementById('tab-amenities').innerHTML = html;
 }
 
-// ══════════════════════════════════════════════════════════
-//  EDITING
-// ══════════════════════════════════════════════════════════
 function editScore(hotelIdx, factorKey, value) {
   const h = state.results[hotelIdx];
   if (!h) return;
   const score = parseFloat(value) || 0;
   h.factors[factorKey].score = score;
-  // Recompute weighted score
   const weight = FACTORS.find(f => f.key === factorKey)?.weight || 1;
   h.factors[factorKey].weighted_score = parseFloat((score * weight).toFixed(1));
-  // Recompute total
   let total = 0;
   FACTORS.forEach(f => { total += (h.factors[f.key]?.weighted_score || 0); });
   h.total = parseFloat(total.toFixed(1));
-  // Re-render to update totals + ranks
   renderScoringTable();
 }
 
@@ -682,34 +521,20 @@ function editReason(hotelIdx, factorKey, value) {
   if (h) h.factors[factorKey].reason = value;
 }
 
-// ══════════════════════════════════════════════════════════
-//  CSV DOWNLOAD
-// ══════════════════════════════════════════════════════════
 function downloadCSV(type) {
   fetch(`/api/download/${state.jobId}/${type}`, {
     method: 'POST',
     headers: {'Content-Type':'application/json'},
     body: JSON.stringify({ results: state.results })
   })
-  .then(r => {
-    const filename = r.headers.get('Content-Disposition')?.split('filename=')[1] || `${type}.csv`;
-    return r.blob().then(blob => ({ blob, filename }));
-  })
-  .then(({ blob, filename }) => {
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = filename.replace(/"/g,'');
-    a.click();
-  })
+  .then(r => r.blob().then(blob => ({ blob, name: type + '_benchmarking.csv' })))
+  .then(({ blob, name }) => { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click(); })
   .catch(err => alert('Download failed: ' + err.message));
 }
 
-// ══════════════════════════════════════════════════════════
-//  TABS & NAVIGATION
-// ══════════════════════════════════════════════════════════
-function showTab(name) {
+function showTab(name, el) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  event.target.classList.add('active');
+  el.classList.add('active');
   document.getElementById('tab-scoring').style.display   = name==='scoring'   ? 'block' : 'none';
   document.getElementById('tab-amenities').style.display = name==='amenities' ? 'block' : 'none';
 }
@@ -726,25 +551,16 @@ function showStep(n) {
 
 function goBack() {
   if (state.pollTimer) clearInterval(state.pollTimer);
-  state.results = [];
-  state.jobId   = null;
+  state.results = []; state.jobId = null;
   showStep(1);
 }
 
-// ══════════════════════════════════════════════════════════
-//  UTILS
-// ══════════════════════════════════════════════════════════
 function escHtml(str) {
-  return String(str||'')
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// ══════════════════════════════════════════════════════════
-//  INIT — pre-add "My Property" card
-// ══════════════════════════════════════════════════════════
-addHotel();   // first card = My Property
-addHotel();   // second = first competitor
+addHotel();
+addHotel();
 </script>
 </body>
 </html>
