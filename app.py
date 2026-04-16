@@ -6,6 +6,10 @@ import os
 import threading
 import uuid
 import traceback
+import subprocess
+
+# Auto-install Chromium on startup (needed after Render free tier sleeps)
+subprocess.run(['playwright', 'install', 'chromium'], check=False)
 
 app = Flask(__name__)
 
