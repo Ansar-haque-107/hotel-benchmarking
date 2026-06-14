@@ -162,7 +162,6 @@ def scrape_agoda(url, page):
         page.evaluate("window.scrollBy(0, 400)")
         human_delay(1, 2)
 
-        # Click Facilities tab
         for sel in [
             'a[data-tab-name="Facilities"]',
             'button:has-text("Facilities")',
@@ -176,7 +175,6 @@ def scrape_agoda(url, page):
 
         human_delay(2, 3)
 
-        # Expand full list if available
         for sel in [
             'button:has-text("See all")',
             'a:has-text("See all facilities")',
@@ -232,7 +230,6 @@ def scrape_google(url, page):
 
         human_delay(1, 2)
 
-        # Click About tab
         for sel in [
             'button:has-text("About")',
             'a:has-text("About")',
@@ -246,7 +243,6 @@ def scrape_google(url, page):
         page.evaluate("window.scrollBy(0, 400)")
         human_delay(1, 2)
 
-        # Expand more amenities if available
         for sel in [
             'button:has-text("See more amenities")',
             'a:has-text("See more amenities")',
@@ -258,7 +254,6 @@ def scrape_google(url, page):
         human_delay(1, 2)
         result['facilities_text'] = page.evaluate("document.body.innerText")
 
-        # Google rating out of 5
         rating = None
         for sel in [
             '[aria-label*="out of 5" i]',
