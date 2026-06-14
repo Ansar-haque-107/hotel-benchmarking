@@ -24,13 +24,13 @@ AMENITIES_KEYWORDS = {
     'Daily housekeeping': ['daily housekeeping', 'housekeeping daily', 'daily cleaning', 'turndown', 'housekeeping'],
     'Laundry':            ['laundry service', 'laundry', 'dry cleaning', 'washing service', 'laundry facilities'],
     '24-hour front desk': ['24-hour front desk', '24/7 front desk', '24-hour reception', 'front desk 24',
-                           'hour front desk', 'front desk (24 hours)', '24 hours front desk', 'front desk [24-hour]',
-                           'front desk [24 hour]', '24 hour front desk'],
+                           'hour front desk', 'front desk (24 hours)', '24 hours front desk',
+                           'front desk [24-hour]', 'front desk [24 hour]', '24 hour front desk'],
     'Lift':               ['lift', 'elevator'],
     'Suite Rooms':        ['suite rooms', 'junior suite', 'suites available', 'suite'],
     'Bathtub in Room':    ['bathtub in room', 'bathtub', 'bath tub', 'soaking tub', 'hot tub in room'],
     'Pet-Friendly Rooms': ['pet-friendly', 'pets allowed', 'pet friendly', 'pets welcome',
-                           'dog-friendly', 'cat-friendly', 'pets allowed'],
+                           'dog-friendly', 'cat-friendly'],
     'Room service':       ['room service', '24-hour room service', 'in-room dining'],
     'Fitness center':     ['fitness center', 'fitness centre', 'gym', 'workout room', 'exercise room',
                            'health club', 'fitness facilities', 'fitness facility'],
@@ -107,10 +107,10 @@ def score_pool(combined_text):
 
 def score_meeting(combined_text):
     t = combined_text.lower()
-    has_banquet  = 'banquet' in t
-    has_bc       = 'business centre' in t or 'business center' in t or 'business facilities' in t
-    has_meeting  = any(k in t for k in ['meeting room', 'conference room', 'boardroom', 'event room',
-                                         'meeting/banquet facilities', 'meeting facilities'])
+    has_banquet = 'banquet' in t
+    has_bc      = 'business centre' in t or 'business center' in t or 'business facilities' in t
+    has_meeting = any(k in t for k in ['meeting room', 'conference room', 'boardroom', 'event room',
+                                        'meeting/banquet facilities', 'meeting facilities'])
     meeting_count = t.count('meeting room') + t.count('conference room')
     has_multi   = meeting_count > 1 or 'multiple meeting' in t
     if has_banquet:
@@ -148,7 +148,6 @@ def score_parking(combined_text):
 
 
 def process_hotel_data(hotel_input, scraped_data):
-    # Merge text from ALL sources: BDC, Expedia, Agoda, Google
     combined_text = ''
     source_ratings = {}
 
@@ -206,10 +205,7 @@ def process_hotel_data(hotel_input, scraped_data):
         ('agoda', 'Agoda'), ('google', 'Google Hotels')
     ]:
         src = scraped_data.get(source_key)
-        if src:
-            scrape_errors[source_label] = src.get('error')
-        else:
-            scrape_errors[source_label] = 'URL not provided'
+        scrape_errors[source_label] = src.get('error') if src else 'URL not provided'
 
     return {
         'name': hotel_input['name'],
@@ -225,7 +221,7 @@ def generate_amenities_csv(results):
     for amenity in AMENITIES_LIST:
         row = [amenity]
         for hotel in results:
-            row.append('checkmark' if hotel.get('amenity_details', {}).get(amenity, False) else '')
+            row.append('Y' if hotel.get('amenity_details', {}).get(amenity, False) else '')
         rows.append(row)
     count_row = ['Count']
     for hotel in results:
