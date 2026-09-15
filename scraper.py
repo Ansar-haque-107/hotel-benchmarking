@@ -280,7 +280,6 @@ def scrape_google(url, page):
 # ──────────────────────────────────────────────
 # MAIN ENTRY POINT
 # ──────────────────────────────────────────────
-
 def scrape_hotel_data(hotel_input):
     with sync_playwright() as p:
         browser = p.chromium.launch(
@@ -301,22 +300,18 @@ def scrape_hotel_data(hotel_input):
             'Accept-Language': 'en-US,en;q=0.9',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
         })
-
         page = context.new_page()
         page.route("**/*.{png,jpg,jpeg,gif,webp,svg,mp4,woff,woff2}", lambda r: r.abort())
 
-        result = {'booking': None, 'expedia': None, 'agoda': None, 'google': None}
+        result = {'booking': None, 'expedia': None}
 
         try:
             if hotel_input.get('booking_url'):
                 result['booking'] = scrape_booking(hotel_input['booking_url'], page)
             if hotel_input.get('expedia_url'):
                 result['expedia'] = scrape_expedia(hotel_input['expedia_url'], page)
-            if hotel_input.get('agoda_url'):
-                result['agoda'] = scrape_agoda(hotel_input['agoda_url'], page)
-            if hotel_input.get('google_url'):
-                result['google'] = scrape_google(hotel_input['google_url'], page)
         finally:
             browser.close()
 
-    return result
+        return result
+
