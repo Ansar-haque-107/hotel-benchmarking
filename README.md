@@ -1,3 +1,5 @@
+<img width="2560" height="1600" alt="Image" src="https://github.com/user-attachments/assets/bf4fe0f6-a536-4b2b-85a6-5e236b950e0e" />
+
 # BenchMark — Hotel Competitive Analysis Tool
 
 An automated competitive benchmarking tool for the hotel industry. It scrapes publicly visible OTA listings for competitor properties and scores each one across eight weighted criteria, giving revenue teams a fast, consistent way to see where they stand against the competition.
