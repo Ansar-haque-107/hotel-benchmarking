@@ -51,8 +51,6 @@
     .source-tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 3px; margin-left: 6px; vertical-align: middle; letter-spacing: 0.5px; }
     .tag-bdc     { background: #1a3a6e; color: #6aadff; }
     .tag-expedia { background: #1a2e4a; color: #7ac0ff; }
-    .tag-agoda   { background: #2e1a3a; color: #c07aff; }
-    .tag-google  { background: #1a3a2a; color: #6adfaa; }
     .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 6px; font-size: 13px; font-weight: 500; font-family: 'Inter', sans-serif; cursor: pointer; border: none; transition: all 0.2s; }
     .btn-gold    { background: var(--gold); color: #07101f; }
     .btn-gold:hover { background: var(--gold-lt); }
@@ -130,11 +128,9 @@
     <!-- STEP 1 -->
     <div class="screen active" id="screen-1">
       <div class="section-title">Add Hotels to Compare</div>
-      <p class="section-sub">Enter your property first, then add competitors. Paste URLs from any combination of
-        <strong style="color:#6aadff">Booking.com</strong>,
-        <strong style="color:#7ac0ff">Expedia</strong>,
-        <strong style="color:#c07aff">Agoda</strong>, or
-        <strong style="color:#6adfaa">Google Hotels</strong> — at least one URL required per hotel.<br>
+      <p class="section-sub">Enter your property first, then add competitors. Paste URLs from
+        <strong style="color:#6aadff">Booking.com</strong> and/or
+        <strong style="color:#7ac0ff">Expedia</strong> — at least one URL required per hotel.<br>
         <strong style="color:var(--gold-lt)">Location</strong> and <strong style="color:var(--gold-lt)">Brand tier</strong> are entered manually.
       </p>
       <div class="hotels-grid" id="hotels-grid"></div>
@@ -195,7 +191,7 @@ let hotelIdCounter = 0;
 function addHotel() {
   const id = ++hotelIdCounter;
   const isFirst = state.hotels.length === 0;
-  state.hotels.push({id, name:'', booking_url:'', expedia_url:'', agoda_url:'', google_url:'', location_score:3, brand_tier:'MidScale', isMyProperty:isFirst});
+  state.hotels.push({id, name:'', booking_url:'', expedia_url:'', location_score:3, brand_tier:'MidScale', isMyProperty:isFirst});
   renderHotelCards();
 }
 function removeHotel(id) { state.hotels = state.hotels.filter(h => h.id !== id); renderHotelCards(); }
@@ -217,24 +213,16 @@ function renderHotelCards() {
           <label>Hotel Name *</label>
           <input type="text" placeholder="e.g. Quality Inn Chattanooga" value="${escHtml(hotel.name)}" oninput="updateHotel(${hotel.id},'name',this.value)" />
         </div>
-        <div class="url-section-label">Source URLs <span style="font-weight:400;color:var(--muted)">— paste at least one</span></div>
-        <p class="url-hint">Mix and match any combination of sources.</p>
-        <div class="field-group">
-          <label>Booking.com URL <span class="source-tag tag-bdc">BDC</span></label>
-          <input type="text" placeholder="https://www.booking.com/hotel/..." value="${escHtml(hotel.booking_url)}" oninput="updateHotel(${hotel.id},'booking_url',this.value)" />
-        </div>
-        <div class="field-group">
-          <label>Expedia URL <span class="source-tag tag-expedia">Expedia</span></label>
-          <input type="text" placeholder="https://www.expedia.com/..." value="${escHtml(hotel.expedia_url)}" oninput="updateHotel(${hotel.id},'expedia_url',this.value)" />
-        </div>
-        <div class="field-group">
-          <label>Agoda URL <span class="source-tag tag-agoda">Agoda</span></label>
-          <input type="text" placeholder="https://www.agoda.com/..." value="${escHtml(hotel.agoda_url)}" oninput="updateHotel(${hotel.id},'agoda_url',this.value)" />
-        </div>
-        <div class="field-group">
-          <label>Google Hotels URL <span class="source-tag tag-google">Google</span></label>
-          <input type="text" placeholder="https://www.google.com/travel/search?q=..." value="${escHtml(hotel.google_url)}" oninput="updateHotel(${hotel.id},'google_url',this.value)" />
-        </div>
+            <div class="url-section-label">Source URLs <span style="font-weight:400;color:var(--muted)">— paste at least one</span></div>
+            <p class="url-hint">Booking.com and Expedia supported currently.</p>
+            <div class="field-group">
+              <label>Booking.com URL <span class="source-tag tag-bdc">BDC</span></label>
+              <input type="text" placeholder="https://www.booking.com/hotel/..." value="${escHtml(hotel.booking_url)}" oninput="updateHotel(${hotel.id},'booking_url',this.value)" />
+            </div>
+            <div class="field-group">
+              <label>Expedia URL <span class="source-tag tag-expedia">Expedia</span></label>
+              <input type="text" placeholder="https://www.expedia.com/..." value="${escHtml(hotel.expedia_url)}" oninput="updateHotel(${hotel.id},'expedia_url',this.value)" />
+            </div>
         <div class="field-group">
           <label>Location Score (1–5) <span style="color:var(--gold-dim);font-size:10px">MANUAL</span></label>
           <input type="number" min="0" max="5" step="0.5" value="${hotel.location_score}" oninput="updateHotel(${hotel.id},'location_score',parseFloat(this.value)||0)" />
@@ -256,16 +244,15 @@ function renderHotelCards() {
 function startScraping() {
   const valid = state.hotels.filter(h => h.name.trim());
   if (valid.length < 2) { alert('Please add at least 2 hotels.'); return; }
-  const noUrl = valid.filter(h => !h.booking_url.trim() && !h.expedia_url.trim() && !h.agoda_url.trim() && !h.google_url.trim());
+  const noUrl = valid.filter(h => !h.booking_url.trim() && !h.expedia_url.trim());
   if (noUrl.length) { alert(`"${noUrl[0].name}" needs at least one URL.`); return; }
   showStep(2);
   fetch('/api/scrape', {
     method: 'POST', headers: {'Content-Type':'application/json'},
     body: JSON.stringify({ hotels: valid.map(h => ({
-      name: h.name.trim(), booking_url: h.booking_url.trim(), expedia_url: h.expedia_url.trim(),
-      agoda_url: h.agoda_url.trim(), google_url: h.google_url.trim(),
-      location_score: h.location_score, brand_tier: h.brand_tier,
-    }))})
+  name: h.name.trim(), booking_url: h.booking_url.trim(), expedia_url: h.expedia_url.trim(),
+  location_score: h.location_score, brand_tier: h.brand_tier,
+}))})
   })
   .then(r => r.json())
   .then(data => { if (data.error) throw new Error(data.error); state.jobId = data.job_id; pollStatus(); })
