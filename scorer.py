@@ -152,8 +152,7 @@ def process_hotel_data(hotel_input, scraped_data):
     source_ratings = {}
 
     for source_key, source_label in [
-        ('booking', 'BDC'), ('expedia', 'Expedia'),
-        ('agoda', 'Agoda'), ('google', 'Google Hotels')
+        ('booking', 'BDC'), ('expedia', 'Expedia')
     ]:
         src = scraped_data.get(source_key)
         if src:
@@ -201,8 +200,7 @@ def process_hotel_data(hotel_input, scraped_data):
 
     scrape_errors = {}
     for source_key, source_label in [
-        ('booking', 'BDC'), ('expedia', 'Expedia'),
-        ('agoda', 'Agoda'), ('google', 'Google Hotels')
+        ('booking', 'BDC'), ('expedia', 'Expedia')
     ]:
         src = scraped_data.get(source_key)
         scrape_errors[source_label] = src.get('error') if src else 'URL not provided'
