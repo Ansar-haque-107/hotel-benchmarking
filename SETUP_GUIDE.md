@@ -1,5 +1,5 @@
 # Hotel Benchmarking Tool — Local Setup Guide
-## (Backup if the hosted Railway link is unavailable)
+## (Backup if the hosted Render link is unavailable)
 
 ---
 
